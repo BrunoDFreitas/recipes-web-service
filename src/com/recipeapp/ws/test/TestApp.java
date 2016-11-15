@@ -35,7 +35,7 @@ public class TestApp {
 			
 			JSONArray ingrAsJson = new JSONArray(ingredients);
 			HttpClient httpClient = HttpClientBuilder.create().build();
-			HttpPost postRequest = new HttpPost("http://localhost:8080/RecipesWebService/recipe/search");
+			HttpPost postRequest = new HttpPost("http://localhost:8080/recipes-web-service/recipe/search");
 			
 			StringEntity input = new StringEntity(ingrAsJson.toString(), Charsets.UTF_8);
 			input.setContentType(MediaType.APPLICATION_JSON);
@@ -58,7 +58,7 @@ public class TestApp {
 			// END POST REQUEST //
 
 			// GET REQUEST //
-			WebResource webResource = client.resource("http://localhost:8080/RecipesWebService/recipe/oldsearch");
+			WebResource webResource = client.resource("http://localhost:8080/recipes-web-service/recipe/oldsearch");
 
 			ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON + ";charset=utf-8")
 					.get(ClientResponse.class);
