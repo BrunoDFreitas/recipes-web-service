@@ -16,8 +16,8 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.lls.receitasws.controller.RecipeController;
+import com.lls.receitasws.model.RecipeDetail;
 import com.lls.receitasws.model.Recipe;
-import com.lls.receitasws.model.RecipeFragment;
 
 @Path("/")
 public class RecipeResource {
@@ -31,7 +31,7 @@ public class RecipeResource {
 	@GET
 	@Path("/recipe/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public Recipe recipeDetails(@PathParam("id") int id) {
+	public RecipeDetail recipeDetails(@PathParam("id") int id) {
 		return new RecipeController().findById(id);
 	}
 
@@ -39,7 +39,7 @@ public class RecipeResource {
 	@Path("/recipe/search")
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<RecipeFragment> recipeSearch(String ls) {
+	public List<Recipe> recipeSearch(String ls) {
 		List<String> lstIngredients = new ArrayList<String>();
 		try {
 			JSONArray ingredientsJson = new JSONObject(ls).getJSONArray("ingredients");
@@ -49,7 +49,7 @@ public class RecipeResource {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		List<RecipeFragment> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);		
+		List<Recipe> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);		
 		
 		return recipes;
 	}

@@ -3,8 +3,8 @@ package com.lls.receitasws.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lls.receitasws.model.RecipeDetail;
 import com.lls.receitasws.model.Recipe;
-import com.lls.receitasws.model.RecipeFragment;
 
 public class RecipeController {
 	
@@ -12,11 +12,11 @@ public class RecipeController {
 		
 	}
 	
-	public List<RecipeFragment> searchRecipeByIngredients(List<String> ingredients){
-		RecipeFragment rf; 
-		List<RecipeFragment> ls = new ArrayList<RecipeFragment>();
+	public List<Recipe> searchRecipeByIngredients(List<String> ingredients){
+		Recipe rf; 
+		List<Recipe> ls = new ArrayList<Recipe>();
 		
-		rf = new RecipeFragment();
+		rf = new Recipe();
 		rf.setTitle("Costela na Pressão com Linguiça");
 		rf.setPrepTime("60 min");
 		rf.setServings("8 porções");
@@ -26,7 +26,7 @@ public class RecipeController {
 		rf.addIngredient("cebola");
 		ls.add(rf);
 		
-		rf = new RecipeFragment();
+		rf = new Recipe();
 		rf.setTitle("Linguiça ao Forno com Batatas");
 		rf.setPrepTime("50 min");
 		rf.setServings("4 porções");
@@ -40,8 +40,8 @@ public class RecipeController {
 		return ls;
 	}
 	
-	public Recipe findById(int id) {
-		Recipe r = new Recipe();
+	public RecipeDetail findById(int id) {
+		RecipeDetail r = new RecipeDetail();
 		
 		r.setTitle("Linguiça ao Forno com Batatas");
 		r.setPrepTime("50 min");
