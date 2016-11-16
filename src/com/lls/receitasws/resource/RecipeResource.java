@@ -1,4 +1,4 @@
-package com.recipeapp.ws.resource;
+package com.lls.receitasws.resource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,9 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-//import com.google.gson.Gson;
-import com.recipeapp.ws.controller.RecipeController;
-import com.recipeapp.ws.model.Recipe;
-import com.recipeapp.ws.model.RecipeFragment;
+import com.lls.receitasws.controller.RecipeController;
+import com.lls.receitasws.model.Recipe;
+import com.lls.receitasws.model.RecipeFragment;
 
 @Path("/")
 public class RecipeResource {

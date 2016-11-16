@@ -1,10 +1,10 @@
-package com.recipeapp.ws.controller;
+package com.lls.receitasws.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.recipeapp.ws.model.Recipe;
-import com.recipeapp.ws.model.RecipeFragment;
+import com.lls.receitasws.model.Recipe;
+import com.lls.receitasws.model.RecipeFragment;
 
 public class RecipeController {
 	

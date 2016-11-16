@@ -1,4 +1,4 @@
-package com.recipeapp.ws.model;
+package com.lls.receitasws.model;
 
 import java.util.ArrayList;
 import java.util.List;
