@@ -1,20 +1,27 @@
 package com.recipeapp.ws.test;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.codec.Charsets;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.recipeapp.ws.model.RecipeFragment;
@@ -25,63 +32,45 @@ import com.sun.jersey.api.client.WebResource;
 public class TestApp {
 	public static void main(String[] args) {
 		try {
-			
-			// POST REQUEST //
-			Client client = Client.create();
-			
-			List<String> ingredients = new ArrayList<String>();
-			ingredients.add("linguiça");
-			ingredients.add("batata");
-			
-			JSONArray ingrAsJson = new JSONArray(ingredients);
-			HttpClient httpClient = HttpClientBuilder.create().build();
-			HttpPost postRequest = new HttpPost("http://localhost:8080/recipes-web-service/recipe/search");
-			
-			StringEntity input = new StringEntity(ingrAsJson.toString(), Charsets.UTF_8);
-			input.setContentType(MediaType.APPLICATION_JSON);
-			postRequest.setEntity(input);
-			
-			
-			HttpResponse postResponse = httpClient.execute(postRequest);
-			if(postResponse.getStatusLine().getStatusCode() != 200 ) {
-				throw new RuntimeException("Failed : HTTP error code : " + postResponse.getStatusLine().getStatusCode());
-			}
-			
-			BufferedReader br = new BufferedReader(
-                    new InputStreamReader(postResponse.getEntity().getContent(), Charsets.UTF_8));
-			
-			String output;
-			System.out.println("POST REQUEST - Output from Server.... \n");
-			while ((output = br.readLine()) != null) {
-				System.out.println(output);
-			}
-			// END POST REQUEST //
-
-			// GET REQUEST //
-			WebResource webResource = client.resource("http://localhost:8080/recipes-web-service/recipe/oldsearch");
-
-			ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON + ";charset=utf-8")
-					.get(ClientResponse.class);
-
-			if (response.getStatus() != 200) {
-				throw new RuntimeException("Failed: HTTP error code : " + response.getStatus());
-			}
-
-			String stringJson = response.getEntity(String.class);
-			JSONArray recipes = new JSONObject(stringJson).getJSONArray("recipes");
-
-			System.out.println("\n\nGET REQUEST - Output from Server ... \n");
-			for (int i = 0; i < recipes.length(); i++) {
-				JSONObject jobj = recipes.getJSONObject(i);
-				RecipeFragment rf = new ObjectMapper().readValue(jobj.toString(), RecipeFragment.class);
-				System.out.println("Objeto " + i);
-				System.out.println("id: " + rf.getId() + ", title: " + rf.getTitle());
-			}
-			// END GET REQUEST //
+			recipeSearchTest();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
+	static public void recipeSearchTest() throws ClientProtocolException, IOException {
+		// POST REQUEST //		
+		List<String> ingredients = new ArrayList<String>();
+		ingredients.add("linguiça");
+		ingredients.add("batata");
+
+		JSONArray ingrAsJson = new JSONArray(ingredients);
+		Map<String, JSONArray> map = new HashMap<String, JSONArray>();
+		map.put("ingredients", ingrAsJson);
+		JSONObject jsonObj = new JSONObject(map);
+		String s = jsonObj.toString();
+		
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost postRequest = new HttpPost("http://192.168.1.2:8080/recipes-web-service/recipe/search");
+
+		StringEntity input = new StringEntity(s, Charsets.UTF_8);
+		input.setContentType(MediaType.APPLICATION_JSON);
+		postRequest.setEntity(input);
+
+		HttpResponse postResponse = httpClient.execute(postRequest);
+		if (postResponse.getStatusLine().getStatusCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : " + postResponse.getStatusLine().getStatusCode());
+		}
+
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(postResponse.getEntity().getContent(), Charsets.UTF_8));
+
+		String output;
+		System.out.println("POST REQUEST - Output from Server.... \n");
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+		}
+		// END POST REQUEST //
 	}
 }

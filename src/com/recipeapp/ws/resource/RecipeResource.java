@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 //import com.google.gson.Gson;
 import com.recipeapp.ws.controller.RecipeController;
@@ -35,14 +36,6 @@ public class RecipeResource {
 		return new RecipeController().findById(id);
 	}
 
-	@GET
-	@Path("/recipe/oldsearch")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<RecipeFragment> recipeOldSearch() {
-		List<RecipeFragment> recipes = new RecipeController().searchRecipeByIngredients(null);
-		return recipes;
-	}
-
 	@POST
 	@Path("/recipe/search")
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -50,14 +43,15 @@ public class RecipeResource {
 	public List<RecipeFragment> recipeSearch(String ls) {
 		List<String> lstIngredients = new ArrayList<String>();
 		try {
-			JSONArray ingredientsJson = new JSONArray(ls);
+			JSONArray ingredientsJson = new JSONObject(ls).getJSONArray("ingredients");
 			for (int i = 0; i < ingredientsJson.length(); i++) {
 				lstIngredients.add((String)ingredientsJson.get(i));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		List<RecipeFragment> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);
+		List<RecipeFragment> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);		
+		
 		return recipes;
 	}
 }
