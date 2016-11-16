@@ -25,14 +25,15 @@ public class RecipeResource {
 	@Path("/test")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String testService() {
-		return "Service OK! Serviço funcionando!";
+		return "Service OK!";
 	}
 
 	@GET
-	@Path("/recipe/{id}")
+	@Path("/recipe/search/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public RecipeDetail recipeDetails(@PathParam("id") int id) {
-		return new RecipeController().findById(id);
+		RecipeDetail r = new RecipeController().findById(id); 
+		return r;
 	}
 
 	@POST
