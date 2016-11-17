@@ -30,7 +30,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public class TestApp {
-	private static String baseUrl = "http://192.168.1.2:8080/recipes-web-service/";
+	private static String baseUrl = "http://192.168.1.4:8080/recipes-web-service/";
 	public static void main(String[] args) {
 		try {
 			recipeSearchTest();
@@ -88,9 +88,13 @@ public class TestApp {
 		}
 
 		String stringJson = response.getEntity(String.class);
+		System.out.println("\n\nGET REQUEST - Output from Server...");
+		System.out.println(stringJson + "\n");
+		
+		System.out.println("Get Objects");
 		JSONObject jobj = new JSONObject(stringJson);
 		RecipeDetail rf = new ObjectMapper().readValue(jobj.toString(), RecipeDetail.class);
 		System.out.println("Id param: " + id);
-		System.out.println("Object - id: " + rf.getId() + ", title: " + rf.getTitle());
+		System.out.println("Object - id: " + rf.getId() + ", title: " + rf.getName());
 	}
 }

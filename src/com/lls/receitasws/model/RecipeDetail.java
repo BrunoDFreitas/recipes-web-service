@@ -8,30 +8,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "recipes")
-@XmlType(propOrder = {"id", "title", "prepTime", "servings", "urlImage", "ingredients", "directions"})
+@XmlType(propOrder = {"id", "name", "prepTime", "servings", "urlImage", "ingredients", "preparationSteps"})
 public class RecipeDetail {
 	private static int nextId = 1;
 	
 	private int id;
-	private String title;
+	private String name;
 	private String prepTime;
 	private String servings;
 	private String urlImage;
 	private List<String> ingredients = new ArrayList<String>();
-	private List<String> directions = new ArrayList<String>();
+	private List<String> preparationSteps = new ArrayList<String>();
 
 	public RecipeDetail(){
 		id = nextId;
 		nextId++;
 	}
 	
-	@XmlElement(name = "title")
-	public String getTitle() {
-		return title;
+	@XmlElement(name = "name")
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	@XmlElement(name = "prepTime")
@@ -83,17 +83,17 @@ public class RecipeDetail {
 		this.urlImage = urlImage;
 	}
 
-	@XmlElement(name = "directions")
-	public List<String> getDirections() {
-		return directions;
+	@XmlElement(name = "preparationSteps")
+	public List<String> getPreparationSteps() {
+		return preparationSteps;
 	}
 
-	public void setDirections(List<String> directions) {
-		this.directions = directions;
+	public void setPreparationSteps(List<String> preparationSteps) {
+		this.preparationSteps = preparationSteps;
 	}
 	
-	public void addDirection(String direction) {
-		this.directions.add(direction);
+	public void addPreparationSteps(String preparationStep) {
+		this.preparationSteps.add(preparationStep);
 	}
 	
 	@XmlElement(name = "id")

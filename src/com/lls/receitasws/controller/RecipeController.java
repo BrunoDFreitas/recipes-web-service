@@ -17,7 +17,7 @@ public class RecipeController {
 
 			Recipe r;
 			r = new Recipe();
-			r.setTitle("Costela na Pressão com Linguiça");
+			r.setName("Costela na Pressão com Linguiça");
 			r.setPrepTime("60 min");
 			r.setServings("8 porções");
 			r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/014/222/174697/174697_original.jpg");
@@ -27,7 +27,7 @@ public class RecipeController {
 			lstRecipe.add(r);
 
 			r = new Recipe();
-			r.setTitle("Linguiça ao Forno com Batatas");
+			r.setName("Linguiça ao Forno com Batatas");
 			r.setPrepTime("50 min");
 			r.setServings("4 porções");
 			r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/135/316/61218/61218_original.jpg");
@@ -42,25 +42,25 @@ public class RecipeController {
 			RecipeDetail rd;
 			
 			rd = new RecipeDetail();
-			rd.setTitle("Costela na Pressão com Linguiça - Detalhe");
+			rd.setName("Costela na Pressão com Linguiça - Detalhe");
 			rd.setPrepTime("60 min");
 			rd.setServings("8 porções");
 			rd.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/014/222/174697/174697_original.jpg");
 			rd.addIngredient("1 kg e 1/2 de costela");
 			rd.addIngredient("800 g de lingüiça toscana");
 			rd.addIngredient("1 cebola grande cortada em rodelas");
-			rd.addDirection("Coloque toda a cebola cebola no fundo da panela de pressão");
-			rd.addDirection("Corte a costela em pedaços e coloque metade sobre a cebola (a parte que tem mais osso para baixo)");
-			rd.addDirection("Coloque metade da lingüiça por cima e faça alguns furos nos gomos");
-			rd.addDirection("Repita a operação e leve no fogo médio alto por mais ou menos 40 a 45 minutos contados a partir do momento que a panela começar a chiar");
-			rd.addDirection("Não adicione água, nem óleo");
-			rd.addDirection("Tire a pressão e saboreie uma deliciosa costela temperada apenas com a lingüiça");
-			rd.addDirection("Deliciosa");
+			rd.addPreparationSteps("Coloque toda a cebola cebola no fundo da panela de pressão");
+			rd.addPreparationSteps("Corte a costela em pedaços e coloque metade sobre a cebola (a parte que tem mais osso para baixo)");
+			rd.addPreparationSteps("Coloque metade da lingüiça por cima e faça alguns furos nos gomos");
+			rd.addPreparationSteps("Repita a operação e leve no fogo médio alto por mais ou menos 40 a 45 minutos contados a partir do momento que a panela começar a chiar");
+			rd.addPreparationSteps("Não adicione água, nem óleo");
+			rd.addPreparationSteps("Tire a pressão e saboreie uma deliciosa costela temperada apenas com a lingüiça");
+			rd.addPreparationSteps("Deliciosa");
 
 			lstRecipeDetail.add(rd);
 
 			rd = new RecipeDetail();
-			rd.setTitle("Linguiça ao Forno com Batatas - Detalhe");
+			rd.setName("Linguiça ao Forno com Batatas - Detalhe");
 			rd.setPrepTime("50 min");
 			rd.setServings("4 porções");
 			rd.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/135/316/61218/61218_original.jpg");
@@ -69,10 +69,10 @@ public class RecipeController {
 			rd.addIngredient("1 pimentão grande cortado");
 			rd.addIngredient("sal e pimenta a gosto");
 			rd.addIngredient("Manjericão para decorar");
-			rd.addDirection("Lave bem as batatas bolinhas, cozinhe-as em água e sal por aproximadamente 5 minutos");
-			rd.addDirection("Unte um refratário com óleo e disponha a linguiça, as batatas e o pimentão");
-			rd.addDirection("Salpique pimenta nas batatas e no pimentão, leve ao forno médio por aproximadamente 30 minutos ou até dourar a linguiça e as batatas");
-			rd.addDirection("Retite do forno e acrescente folhas de manjericão (acrescenta um sabor e um aroma maravilhoso ao prato)");
+			rd.addPreparationSteps("Lave bem as batatas bolinhas, cozinhe-as em água e sal por aproximadamente 5 minutos");
+			rd.addPreparationSteps("Unte um refratário com óleo e disponha a linguiça, as batatas e o pimentão");
+			rd.addPreparationSteps("Salpique pimenta nas batatas e no pimentão, leve ao forno médio por aproximadamente 30 minutos ou até dourar a linguiça e as batatas");
+			rd.addPreparationSteps("Retite do forno e acrescente folhas de manjericão (acrescenta um sabor e um aroma maravilhoso ao prato)");
 
 			lstRecipeDetail.add(rd);
 		}

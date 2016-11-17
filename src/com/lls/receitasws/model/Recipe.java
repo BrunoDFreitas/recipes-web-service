@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlRootElement(name = "recipes")
-@XmlType(propOrder = {"id", "title", "prepTime", "servings", "urlImage", "ingredients"})
+@XmlType(propOrder = {"id", "name", "prepTime", "servings", "urlImage", "ingredients"})
 public class Recipe {
 	private static int nextId = 1;
 	private int id;
-	private String title;
+	private String name;
 	private String prepTime;
 	private String servings;
 	private List<String> ingredients = new ArrayList<String>();
@@ -24,12 +24,12 @@ public class Recipe {
 		nextId++;
 	}
 	
-	@XmlElement(name = "title")
-	public String getTitle() {
-		return title;
+	@XmlElement(name = "name")
+	public String getName() {
+		return name;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	@XmlElement(name = "prepTime")
