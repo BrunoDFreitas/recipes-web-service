@@ -3,21 +3,52 @@ package com.lls.receitasws.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
+@Entity
+@Table(name="recipe")
 @XmlRootElement(name = "recipes")
 @XmlType(propOrder = {"id", "name", "prepTime", "servings", "urlImage", "ingredients"})
 public class Recipe {
 	private static int nextId = 1;
+	
+	@Id
+	@GeneratedValue
+	@Column(name="recipe_id", nullable=false)
 	private int id;
+	
+	@Column(name="name", nullable=false)
 	private String name;
+	
+	@Column(name="preparation_time", nullable=false)
 	private String prepTime;
+	
+	@Column(name="servings", nullable=false)
 	private String servings;
-	private List<String> ingredients = new ArrayList<String>();
+	
+	@Column(name="url_image", nullable=false)
 	private String urlImage;
+	
+	@Transient
+	private List<String> lstIngredients = new ArrayList<String>();
+	
+	@ManyToMany(cascade = {CascadeType.ALL})
+	@JoinTable(name="recipe_ingredient"
+		, joinColumns= {@JoinColumn(name="recipe_id")}, inverseJoinColumns=
+		  {@JoinColumn(name="ingredient_id")})
+	private List<Ingredient> ingredients;
 	
 	public Recipe(){
 		id = nextId;
@@ -49,11 +80,11 @@ public class Recipe {
 	}
 	
 	@XmlElement(name = "ingredients")
-	public List<String> getIngredients() {
-		return ingredients;
+	public List<String> getLstIngredients() {
+		return lstIngredients;
 	}
-	public void setIngredients(List<String> ingredients) {
-		this.ingredients = ingredients;
+	public void setLstIngredients(List<String> ingredients) {
+		this.lstIngredients = ingredients;
 	}
 	
 	@XmlElement(name = "urlImage")
@@ -68,7 +99,17 @@ public class Recipe {
 	public int getId() {
 		return id;
 	}
-	public void addIngredient(String ingredient) {
-		this.ingredients.add(ingredient);
+	public void addLstIngredient(String ingredient) {
+		this.lstIngredients.add(ingredient);
 	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	
 }

@@ -1,22 +1,20 @@
 package com.lls.receitasws.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.lls.receitasws.model.RecipeDetail;
-import com.lls.receitasws.dao.HibernateRecipeDao;
+import com.lls.receitasws.dao.HibernateRecipeDetailDao;
 import com.lls.receitasws.dao.MockRecipeDao;
 import com.lls.receitasws.dao.MockRecipeDetailDao;
-import com.lls.receitasws.dao.RecipeDao;
 import com.lls.receitasws.model.Recipe;
+import com.lls.receitasws.model.RecipeDetail;
 
-public class RecipeController {
+public class RecipeDetailController {
 
-	private static HibernateRecipeDao recipeDao; 
+	private static HibernateRecipeDetailDao recipeDao; 
 
-	public RecipeController() {
+	public RecipeDetailController() {
 		if(recipeDao == null) {
-			recipeDao = new HibernateRecipeDao();
+			recipeDao = new HibernateRecipeDetailDao();
 		}
 	}
 
@@ -32,7 +30,7 @@ public class RecipeController {
 	}
 	
 	
-	public void persist(Recipe r) {
+	public void persist(RecipeDetail r) {
 		recipeDao.openCurrentSessionwithTransaction();
 		recipeDao.persist(r);
 		recipeDao.closeCurrentSessionwithTransaction();
