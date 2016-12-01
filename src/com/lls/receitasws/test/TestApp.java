@@ -30,7 +30,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 public class TestApp {
-	private static String baseUrl = "http://localhost:8080/recipes-web-service/";
+	private static String baseUrl = "http://localhost:8888/recipes-web-service/";
 	public static void main(String[] args) {
 		try {
 			recipeSearchTest();

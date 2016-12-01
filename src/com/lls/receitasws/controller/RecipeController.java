@@ -27,8 +27,11 @@ public class RecipeController {
 		return new MockRecipeDao().findAll();
 	}
 
-	public RecipeDetail findById(int id) {
-		return new MockRecipeDetailDao().findById(id);
+	public Recipe findById(int id) {
+		recipeDao.openCurrentSession();
+		Recipe r = recipeDao.findById(id);
+		recipeDao.closeCurrentSession();
+		return r;
 	}
 	
 	
@@ -36,5 +39,13 @@ public class RecipeController {
 		recipeDao.openCurrentSessionwithTransaction();
 		recipeDao.persist(r);
 		recipeDao.closeCurrentSessionwithTransaction();
+	}
+	
+	
+	public List<Recipe> findAll() {
+		recipeDao.openCurrentSession();
+		List<Recipe> recipes =  recipeDao.findAll();
+		recipeDao.closeCurrentSession();
+		return recipes;
 	}
 }

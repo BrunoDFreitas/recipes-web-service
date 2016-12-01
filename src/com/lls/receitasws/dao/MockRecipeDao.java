@@ -18,9 +18,9 @@ public class MockRecipeDao implements RecipeDao<Recipe, Integer> {
 			r.setPrepTime("60 min");
 			r.setServings("8 porções");
 			r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/014/222/174697/174697_original.jpg");
-			r.addLstIngredient("costela");
-			r.addLstIngredient("linguiça");
-			r.addLstIngredient("cebola");
+			r.addIngredient("costela");
+			r.addIngredient("linguiça");
+			r.addIngredient("cebola");
 			lstRecipe.add(r);
 
 			r = new Recipe();
@@ -28,10 +28,10 @@ public class MockRecipeDao implements RecipeDao<Recipe, Integer> {
 			r.setPrepTime("50 min");
 			r.setServings("4 porções");
 			r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/135/316/61218/61218_original.jpg");
-			r.addLstIngredient("linguiça");
-			r.addLstIngredient("batata");
-			r.addLstIngredient("pimentão");
-			r.addLstIngredient("+");
+			r.addIngredient("linguiça");
+			r.addIngredient("batata");
+			r.addIngredient("pimentão");
+			r.addIngredient("+");
 			lstRecipe.add(r);
 		}
 		
@@ -70,6 +70,12 @@ public class MockRecipeDao implements RecipeDao<Recipe, Integer> {
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Recipe> findByIngredients(List<String> ingredients) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 
 }

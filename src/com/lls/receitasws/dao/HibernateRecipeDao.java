@@ -18,12 +18,14 @@ public class HibernateRecipeDao extends SessionDao implements RecipeDao<Recipe, 
 	
 	@Override
 	public List<Recipe> findAll() {
-//		//List<Recipe> recipes = (List<Recipe>) getCurrentSession().createQuery("from recipe").getResultList();
-//		List<Recipe> recipes = new ArrayList<Recipe>();
-//		Recipe recipe = getCurrentSession().find(Recipe.class, 1);
-//		recipes.add(recipe);
-//		return recipes;
-		return null;
+		List<Recipe> recipes = (List<Recipe>)getCurrentSession().createQuery("from recipe").list();
+		return recipes;
+	}
+	
+	@Override
+	public List<Recipe> findByIngredients(List<String> ingredients) {
+		List<Recipe> recipes = (List<Recipe>)getCurrentSession().createQuery("from recipe").list();
+		return recipes;
 	}
 
 	@Override
@@ -39,8 +41,8 @@ public class HibernateRecipeDao extends SessionDao implements RecipeDao<Recipe, 
 
 	@Override
 	public Recipe findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Recipe r = (Recipe) getCurrentSession().get(Recipe.class, id);
+		return r;
 	}
 
 	@Override

@@ -15,5 +15,7 @@ public interface RecipeDao<T, Id extends Serializable> {
 	
 	public List<T> findAll();
 	
-	public void deleteAll();
+	public void deleteAll();	
+
+	public List<T> findByIngredients(List<String> ingredients);
 }

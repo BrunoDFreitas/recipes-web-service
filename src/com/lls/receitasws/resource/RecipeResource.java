@@ -16,6 +16,9 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.lls.receitasws.controller.RecipeController;
+import com.lls.receitasws.controller.RecipeDetailController;
+import com.lls.receitasws.dao.MockRecipeDao;
+import com.lls.receitasws.dao.MockRecipeDetailDao;
 import com.lls.receitasws.model.RecipeDetail;
 import com.lls.receitasws.model.Recipe;
 
@@ -32,7 +35,8 @@ public class RecipeResource {
 	@Path("/recipe/search/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public RecipeDetail recipeDetails(@PathParam("id") int id) {
-		RecipeDetail r = new RecipeController().findById(id); 
+		//RecipeDetail r = new RecipeDetailController().findById(id);
+		RecipeDetail r = new MockRecipeDetailDao().findById(id);
 		return r;
 	}
 
@@ -42,15 +46,16 @@ public class RecipeResource {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public List<Recipe> recipeSearch(String ls) {
 		List<String> lstIngredients = new ArrayList<String>();
-		try {
-			JSONArray ingredientsJson = new JSONObject(ls).getJSONArray("ingredients");
-			for (int i = 0; i < ingredientsJson.length(); i++) {
-				lstIngredients.add((String)ingredientsJson.get(i));
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		List<Recipe> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);		
+//		try {
+//			JSONArray ingredientsJson = new JSONObject(ls).getJSONArray("ingredients");
+//			for (int i = 0; i < ingredientsJson.length(); i++) {
+//				lstIngredients.add((String)ingredientsJson.get(i));
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		List<Recipe> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);		
+		List<Recipe> recipes  = new MockRecipeDao().findAll();		
 		
 		return recipes;
 	}

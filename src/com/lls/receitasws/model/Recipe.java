@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -41,10 +42,10 @@ public class Recipe {
 	@Column(name="url_image", nullable=false)
 	private String urlImage;
 	
-	@Transient
-	private List<String> lstIngredients = new ArrayList<String>();
+//	@Transient
+//	private List<String> lstIngredients = new ArrayList<String>();
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinTable(name="recipe_ingredient"
 		, joinColumns= {@JoinColumn(name="recipe_id")}, inverseJoinColumns=
 		  {@JoinColumn(name="ingredient_id")})
@@ -54,6 +55,8 @@ public class Recipe {
 		id = nextId;
 		nextId++;
 	}
+	
+	// GETTERS AND SETTERS
 	
 	@XmlElement(name = "name")
 	public String getName() {
@@ -79,13 +82,13 @@ public class Recipe {
 		this.servings = servings;
 	}
 	
-	@XmlElement(name = "ingredients")
-	public List<String> getLstIngredients() {
-		return lstIngredients;
-	}
-	public void setLstIngredients(List<String> ingredients) {
-		this.lstIngredients = ingredients;
-	}
+	
+//	public List<String> getLstIngredients() {
+//		return lstIngredients;
+//	}
+//	public void setLstIngredients(List<String> ingredients) {
+//		this.lstIngredients = ingredients;
+//	}
 	
 	@XmlElement(name = "urlImage")
 	public String getUrlImage() {
@@ -99,10 +102,8 @@ public class Recipe {
 	public int getId() {
 		return id;
 	}
-	public void addLstIngredient(String ingredient) {
-		this.lstIngredients.add(ingredient);
-	}
-
+	
+	@XmlElement(name = "ingredients")
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -110,6 +111,20 @@ public class Recipe {
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+
+	@Override
+	public String toString() {
+		return "Recipe [id=" + id + ", name=" + name + ", prepTime=" + prepTime + ", servings=" + servings
+				+ ", urlImage=" + urlImage + "]";
+	}
+	// END GETTERS AND SETTERS
 	
 	
+	public void addIngredient(String ingredient) {
+		if(this.ingredients == null)
+			this.ingredients = new ArrayList<Ingredient>();
+		Ingredient i = new Ingredient();
+		i.setName(ingredient);
+		this.ingredients.add(i);
+	}
 }
