@@ -3,6 +3,7 @@ package com.lls.receitasws.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,13 +19,22 @@ public class HibernateRecipeDao extends SessionDao implements RecipeDao<Recipe, 
 	
 	@Override
 	public List<Recipe> findAll() {
-		List<Recipe> recipes = (List<Recipe>)getCurrentSession().createQuery("from recipe").list();
+		List<Recipe> recipes = (List<Recipe>)getCurrentSession().createQuery("from Recipe").list();
 		return recipes;
 	}
 	
 	@Override
 	public List<Recipe> findByIngredients(List<String> ingredients) {
-		List<Recipe> recipes = (List<Recipe>)getCurrentSession().createQuery("from recipe").list();
+		String hql = 
+				"select r from Recipe r join r.ingredients i where i.name in (:ingredients) group by r"
+//				+ "where r.ingredients in (select i.id from Ingredient as i where i.name in (:ingredients))";
+//				+ "where r.ingredients = (from Ingredient as i where i.id = 1) "
+				;
+		Query q = getCurrentSession().createQuery(hql);
+		List<Recipe> recipes = (List<Recipe>)getCurrentSession()
+				.createQuery(hql)
+				.setParameterList("ingredients", ingredients)
+				.list();
 		return recipes;
 	}
 

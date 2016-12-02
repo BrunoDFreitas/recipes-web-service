@@ -22,7 +22,6 @@ import javax.xml.bind.annotation.XmlType;
 @Table(name="recipe")
 @XmlRootElement(name = "recipes")
 @XmlType(propOrder = {"id", "name", "prepTime", "servings", "urlImage", "ingredients", "preparationSteps"})
-//@XmlType(propOrder = {"id", "name", "prepTime", "servings", "urlImage", "ingredients"})
 public class RecipeDetail {
 	private static int nextId = 1;
 	
@@ -61,6 +60,8 @@ public class RecipeDetail {
 		nextId++;
 	}
 	
+	
+	// GETTER AND SETTERS
 	@XmlElement(name = "name")
 	public String getName() {
 		return name;
@@ -152,5 +153,12 @@ public class RecipeDetail {
 
 	public void setIngredients(List<IngredientDetail> ingredients) {
 		this.ingredients = ingredients;
+	}	
+	
+	// END GETTER AND SETTERS
+	@Override
+	public String toString() {
+		return "RecipeDetail [id=" + id + ", name=" + name + ", prepTime=" + prepTime + ", servings=" + servings
+				+ ", urlImage=" + urlImage + "]";
 	}	
 }

@@ -47,4 +47,9 @@ public class PreparationStep {
 		return id;
 	}	
 	// END GETTERS AND SETTERS
+	
+	@Override
+	public String toString() {
+		return "PreparationStep [id=" + id + ", step=" + step + "]";
+	}
 }

@@ -36,7 +36,8 @@ public class RecipeResource {
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public RecipeDetail recipeDetails(@PathParam("id") int id) {
 		//RecipeDetail r = new RecipeDetailController().findById(id);
-		RecipeDetail r = new MockRecipeDetailDao().findById(id);
+//		RecipeDetail r = new MockRecipeDetailDao().findById(id);
+		RecipeDetail r = new RecipeDetailController().findById(id);
 		return r;
 	}
 
@@ -44,8 +45,8 @@ public class RecipeResource {
 	@Path("/recipe/search")
 	@Consumes(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public List<Recipe> recipeSearch(String ls) {
-		List<String> lstIngredients = new ArrayList<String>();
+	public List<Recipe> recipeSearch(String ingredients) {
+//		List<String> lstIngredients = new ArrayList<String>();
 //		try {
 //			JSONArray ingredientsJson = new JSONObject(ls).getJSONArray("ingredients");
 //			for (int i = 0; i < ingredientsJson.length(); i++) {
@@ -55,7 +56,8 @@ public class RecipeResource {
 //			e.printStackTrace();
 //		}
 //		List<Recipe> recipes = new RecipeController().searchRecipeByIngredients(lstIngredients);		
-		List<Recipe> recipes  = new MockRecipeDao().findAll();		
+//		List<Recipe> recipes  = new MockRecipeDao().findAll();	
+		List<Recipe> recipes = new RecipeController().findAll();
 		
 		return recipes;
 	}

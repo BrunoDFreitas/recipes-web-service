@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="ingredient")
@@ -39,6 +40,7 @@ public class Ingredient {
 		this.name = name;
 	}
 
+	@XmlTransient
 	public List<Recipe> getRecipes() {
 		return recipes;
 	}

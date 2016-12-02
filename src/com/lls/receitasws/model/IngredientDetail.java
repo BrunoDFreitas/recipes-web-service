@@ -47,6 +47,12 @@ public class IngredientDetail {
 	public void setRecipe(RecipeDetail recipe) {
 		this.recipe = recipe;
 	}
-	
+
 	// END GETTERS AND SETTERS
+	
+	@Override
+	public String toString() {
+		return "IngredientDetail [id=" + id + ", ingredient=" + ingredient + "]";
+	}
+	
 }

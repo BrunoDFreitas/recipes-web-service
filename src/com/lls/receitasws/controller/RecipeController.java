@@ -20,12 +20,12 @@ public class RecipeController {
 		}
 	}
 
-	public List<Recipe> searchRecipeByIngredients(List<String> ingredients) {
-//		recipeDao.openCurrentSession();
-//		List<Recipe> recipes = recipeDao.listAll();
-//		recipeDao.closeCurrentSession();
-		return new MockRecipeDao().findAll();
-	}
+//	public List<Recipe> searchRecipeByIngredients(List<String> ingredients) {
+////		recipeDao.openCurrentSession();
+////		List<Recipe> recipes = recipeDao.listAll();
+////		recipeDao.closeCurrentSession();
+//		return new MockRecipeDao().findAll();
+//	}
 
 	public Recipe findById(int id) {
 		recipeDao.openCurrentSession();
@@ -45,6 +45,14 @@ public class RecipeController {
 	public List<Recipe> findAll() {
 		recipeDao.openCurrentSession();
 		List<Recipe> recipes =  recipeDao.findAll();
+		recipeDao.closeCurrentSession();
+		return recipes;
+	}
+	
+	
+	public List<Recipe> findByIngredients(List<String> ingredients) {
+		recipeDao.openCurrentSession();
+		List<Recipe> recipes =  recipeDao.findByIngredients(ingredients);
 		recipeDao.closeCurrentSession();
 		return recipes;
 	}

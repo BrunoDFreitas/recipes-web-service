@@ -20,13 +20,18 @@ public class RecipeDetailController {
 
 	public List<Recipe> searchRecipeByIngredients(List<String> ingredients) {
 //		recipeDao.openCurrentSession();
-//		List<Recipe> recipes = recipeDao.listAll();
+//		List<Recipe> recipes = recipeDao.findAll();
 //		recipeDao.closeCurrentSession();
+//		return recipes;
 		return new MockRecipeDao().findAll();
 	}
 
 	public RecipeDetail findById(int id) {
-		return new MockRecipeDetailDao().findById(id);
+		recipeDao.openCurrentSession();
+		RecipeDetail r = recipeDao.findById(id);
+		recipeDao.closeCurrentSession();
+		return r;
+//		return new MockRecipeDetailDao().findById(id);
 	}
 	
 	

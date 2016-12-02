@@ -3,6 +3,7 @@ package com.lls.receitasws.dao;
 import java.util.List;
 
 import com.lls.receitasws.model.IngredientDetail;
+import com.lls.receitasws.model.Recipe;
 import com.lls.receitasws.model.RecipeDetail;
 
 public class HibernateRecipeDetailDao extends SessionDao implements RecipeDetailDao<RecipeDetail, Integer>{
@@ -20,8 +21,13 @@ public class HibernateRecipeDetailDao extends SessionDao implements RecipeDetail
 
 	@Override
 	public RecipeDetail findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+//		RecipeDetail r = (RecipeDetail) getCurrentSession().get(RecipeDetail.class, id);
+		String hql = "select r from RecipeDetail r where r.id = :id";
+		RecipeDetail r = (RecipeDetail) getCurrentSession()
+				.createQuery(hql)
+				.setParameter("id", id)
+				.list().get(0);
+		return r;
 	}
 
 	@Override
