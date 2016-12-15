@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lls.receitasws.controller.RecipeController;
-import com.lls.receitasws.controller.RecipeDetailController;
 import com.lls.receitasws.model.IngredientDetail;
 import com.lls.receitasws.model.PreparationStep;
 import com.lls.receitasws.model.Ingredient;
@@ -19,45 +18,26 @@ public class TestDB {
 //		testRecipeInserUsingExistIngredient(1);
 //		testRecipeFind(2);		
 //		testRecipeFindAll();
+		
 //		List<String> ingredients = new ArrayList<String>();
-//		ingredients.add("Ingrediente 1");
+//		ingredients.add("linguiça");
 //		testRecipeFindByIngredients(ingredients);
-//		ingredients.clear();
-//		ingredients.add("Ingrediente 2");
-//		testRecipeFindByIngredients(ingredients);
-		// END TEST RECIPE
+//		
+//		List<String> ingredients2 = new ArrayList<String>();
+//		ingredients2.add("batata");
+//		testRecipeFindByIngredients(ingredients2);
+//		
+//		List<String> ingredients3 = new ArrayList<String>();
+//		ingredients3.add("costela");
+//		ingredients3.add("pimentão");
+//		testRecipeFindByIngredients(ingredients3);
+
 		
-		// TEST RECIPE DETAIL
-		
-//		testRecipeDetailInsert("Receita detalhada 1");
-//		testRecipeDetailInsert("Receita detalhada 2");
-		testRecipeDetailFindById(6);
-//		testRecipeDetailFindById(6);
-		// END TEST RECIPE DETAIL
-		
+//		initDataBase();
+//		initDataBase2();
+		initDataBase3();
 	}
 	
-	public static void testRecipeInsert() {
-		System.out.println("\nTESTE RECIPE INSERT NEW");
-		Ingredient i1 = new Ingredient();
-		i1.setName("Ingrediente 1");
-
-		Ingredient i2 = new Ingredient();
-		i2.setName("Ingrediente 2");
-
-		List<Ingredient> ingredients = new ArrayList<Ingredient>();
-		ingredients.add(i1);
-		ingredients.add(i2);
-
-		Recipe r = new Recipe();
-		r.setName("Receita 1");
-		r.setPrepTime("5 min");
-		r.setServings("10 pratos");
-		r.setUrlImage("url 2");
-		r.setIngredients(ingredients);
-
-		new RecipeController().persist(r);
-	}
 	
 	private static void testRecipeFindById(int id) {
 		System.out.println("\nTESTE RECIPE FIND BY ID");
@@ -128,54 +108,193 @@ public class TestDB {
 			for (Ingredient i : r.getIngredients()) {
 				System.out.println(i.toString());
 			}
+			for (IngredientDetail ing : r.getIngredientsDetail()) {
+				System.out.println(ing.toString());
+			}
+			for (PreparationStep p : r.getPreparationSteps()) {
+				System.out.println(p.toString());
+			}
+			
 			System.out.println("END RECIPE " + count);
 		}
 	}
 
 	
-	private static void testRecipeDetailInsert(String name) {
-		System.out.println("\nTESTE RECIPE DETAIL INSERT NEW");
-		IngredientDetail id1 = new IngredientDetail();
-		id1.setIngredient("Ingrediente detalhado 3");
-		IngredientDetail id2 = new IngredientDetail();
-		id2.setIngredient("Ingrediente detalhado 4");
-		List<IngredientDetail> lstIngDetail = new ArrayList<IngredientDetail>();
-		lstIngDetail.add(id1);
-		lstIngDetail.add(id2);
-		
-		PreparationStep p1 = new PreparationStep();
-		p1.setStep("Passo 1");
-		PreparationStep p2 = new PreparationStep();
-		p2.setStep("Passo 2");
-		List<PreparationStep> lstStep = new ArrayList<PreparationStep>();
-		lstStep.add(p1);
-		lstStep.add(p2);
-		
-		RecipeDetail rd = new RecipeDetail();
-		rd.setName(name);
-		rd.setPrepTime("5 min");
-		rd.setServings("10 pratos");
-		rd.setUrlImage("url 2");
-		rd.setIngredients(lstIngDetail);
-		rd.setPreparationSteps(lstStep);
-		
-		id1.setRecipe(rd);
-		id2.setRecipe(rd);
-		p1.setRecipe(rd);
-		p2.setRecipe(rd);
-		
-		new RecipeDetailController().persist(rd);
-	}	
 	
-	private static void testRecipeDetailFindById(int id) {
-		System.out.println("\nTESTE RECIPE DETAIL FIND BY ID");
-		RecipeDetail recipeDetailFound = new RecipeDetailController().findById(id);
-		System.out.println(recipeDetailFound.toString());
-		for (IngredientDetail ing : recipeDetailFound.getIngredients()) {
-			System.out.println(ing.toString());
+	private static void initDataBase() {
+		Recipe r = new Recipe();
+		r.setName("Costela na Pressão com Linguiça");
+		r.setPrepTime("60 min");
+		r.setServings("8 porções");
+		r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/014/222/174697/174697_original.jpg");
+		r.addIngredient("costela");
+		r.addIngredient("linguiça");
+		r.addIngredient("cebola");
+		r.addIngredientDetail("1 kg e 1/2 de costela");
+		r.addIngredientDetail("800 g de lingüiça toscana");
+		r.addIngredientDetail("1 cebola grande cortada em rodelas");
+		r.addPreparationSteps("Coloque toda a cebola cebola no fundo da panela de pressão");
+		r.addPreparationSteps("Corte a costela em pedaços e coloque metade sobre a cebola (a parte que tem mais osso para baixo)");
+		r.addPreparationSteps("Coloque metade da lingüiça por cima e faça alguns furos nos gomos");
+		r.addPreparationSteps("Repita a operação e leve no fogo médio alto por mais ou menos 40 a 45 minutos contados a partir do momento que a panela começar a chiar");
+		r.addPreparationSteps("Não adicione água, nem óleo");
+		r.addPreparationSteps("Tire a pressão e saboreie uma deliciosa costela temperada apenas com a lingüiça");
+		r.addPreparationSteps("Deliciosa");
+		for(IngredientDetail id : r.getIngredientsDetail()){
+			id.setRecipe(r);
 		}
-		for (PreparationStep p : recipeDetailFound.getPreparationSteps()) {
-			System.out.println(p.toString());
+		for(PreparationStep p : r.getPreparationSteps()){
+			p.setRecipe(r);
 		}
+		
+		new RecipeController().persist(r);
+		
+		r = new Recipe();
+		r.setName("Linguiça ao Forno com Batatas");
+		r.setPrepTime("50 min");
+		r.setServings("4 porções");
+		r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/135/316/61218/61218_original.jpg");
+		r.setIngredients(new ArrayList<Ingredient>());
+		r.addIngredient("linguiça");
+		r.addIngredient("batata");
+		r.addIngredient("pimentão");
+		r.addIngredient("+");
+		r.addIngredientDetail("1/2 kg de linguiça toscana");
+		r.addIngredientDetail("1/2 kg de batata bolinha");
+		r.addIngredientDetail("1 pimentão grande cortado");
+		r.addIngredientDetail("sal e pimenta a gosto");
+		r.addIngredientDetail("Manjericão para decorar");
+		r.addPreparationSteps("Lave bem as batatas bolinhas, cozinhe-as em água e sal por aproximadamente 5 minutos");
+		r.addPreparationSteps("Unte um refratário com óleo e disponha a linguiça, as batatas e o pimentão");
+		r.addPreparationSteps("Salpique pimenta nas batatas e no pimentão, leve ao forno médio por aproximadamente 30 minutos ou até dourar a linguiça e as batatas");
+		r.addPreparationSteps("Retite do forno e acrescente folhas de manjericão (acrescenta um sabor e um aroma maravilhoso ao prato)");	
+
+
+		for(IngredientDetail id : r.getIngredientsDetail()){
+			id.setRecipe(r);
+		}
+		for(PreparationStep p : r.getPreparationSteps()){
+			p.setRecipe(r);
+		}
+		
+		new RecipeController().persist(r);
+	}
+	
+	private static void initDataBase2() {
+		Recipe r = new Recipe();
+		r.setName("MACARRÃO DE PANELA DE PRESSÃO");
+		r.setPrepTime("30 min");
+		r.setServings("8 porções");
+		r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/000/742/126535/126535_original.jpg");
+		r.addIngredient("macarrão");
+		r.addIngredient("tomate");
+		r.addIngredient("atum");
+		r.addIngredient("margarina");
+		r.addIngredient("presunto");
+		r.addIngredientDetail("500 g de macarrão parafuso");
+		r.addIngredientDetail("1 lata de atum ralado");
+		r.addIngredientDetail("1 lata de molho de tomate");
+		r.addIngredientDetail("2 cubos de caldo de galinha picados");
+		r.addIngredientDetail("2 cubos de caldo de galinha picados");
+		r.addIngredientDetail("2 colheres (sopa) de margarina");
+		r.addPreparationSteps("Na panela de pressão coloque o macarrão, molho de tomate, atum, caldo de galinha, margarina e sal");
+		r.addPreparationSteps("Coloque água até cobrir e misture bem todos os ingredientes");
+		r.addPreparationSteps("Leve ao fogo alto e quando a panela pegar a pressão, conte 4 minutos");
+		r.addPreparationSteps("Abra a panela e coloque o presunto, o creme de leite e por último a mussarela, misture bem e sirva em seguida");
+		for(IngredientDetail id : r.getIngredientsDetail()){
+			id.setRecipe(r);
+		}
+		for(PreparationStep p : r.getPreparationSteps()){
+			p.setRecipe(r);
+		}
+		
+		new RecipeController().persist(r);
+		
+		r = new Recipe();
+		r.setName("MACARRÃO À CARBONARA");
+		r.setPrepTime("15 min");
+		r.setServings("6 porções");
+		r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/001/624/38726/38726_original.jpg");
+		r.setIngredients(new ArrayList<Ingredient>());
+		r.addIngredient("macarrão");
+		r.addIngredient("sal");
+		r.addIngredient("pimenta");
+		r.addIngredient("queijo");
+		r.addIngredientDetail("bacon picado a gosto");
+		r.addIngredientDetail("queijo ralado a gosto");
+		r.addIngredientDetail("3 ovos");
+		r.addIngredientDetail("sal");
+		r.addIngredientDetail("pimenta");
+		r.addPreparationSteps("Frite bem o bacon, até ficar crocante (pode-se adicionar salame picado)");
+		r.addPreparationSteps("Coloque o macarrão para cozinhar em água e sal");
+		r.addPreparationSteps("No refratário onde será servido o macarrão, bata bem os ovos com um garfo");
+		r.addPreparationSteps("Tempere com sal e pimenta a gosto, e junte o queijo ralado, também a gosto");	
+		for(IngredientDetail id : r.getIngredientsDetail()){
+			id.setRecipe(r);
+		}
+		for(PreparationStep p : r.getPreparationSteps()){
+			p.setRecipe(r);
+		}
+		
+		new RecipeController().persist(r);		
+	}
+	
+	private static void initDataBase3() {
+		Recipe r = new Recipe();
+		r.setName("MACARRÃO DE PANELA DE PRESSÃO");
+		r.setPrepTime("30 min");
+		r.setServings("8 porções");
+		r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/065/022/38779/38779_original.jpg");
+		r.addIngredient("ovo");
+		r.addIngredient("farinha");
+		r.addIngredient("sal");
+		r.addIngredient("manteiga");
+		r.addIngredient("leite");
+		r.addIngredientDetail("1 xícara de leite integral");
+		r.addIngredientDetail("1 xícara de farinha de trigo");
+		r.addIngredientDetail("1 ovo");
+		r.addIngredientDetail("1 pitada de sal");
+		r.addIngredientDetail("Manteiga");
+		r.addIngredientDetail("2 colheres (sopa) de margarina");
+		r.addPreparationSteps("Na panela de pressão coloque o macarrão, molho de tomate, atum, caldo de galinha, margarina e sal");
+		r.addPreparationSteps("Coloque água até cobrir e misture bem todos os ingredientes");
+		r.addPreparationSteps("Leve ao fogo alto e quando a panela pegar a pressão, conte 4 minutos");
+		r.addPreparationSteps("Abra a panela e coloque o presunto, o creme de leite e por último a mussarela, misture bem e sirva em seguida");
+		for(IngredientDetail id : r.getIngredientsDetail()){
+			id.setRecipe(r);
+		}
+		for(PreparationStep p : r.getPreparationSteps()){
+			p.setRecipe(r);
+		}
+		
+		new RecipeController().persist(r);
+		
+		r = new Recipe();
+		r.setName("PANQUECA DE CARNE MOÍDA");
+		r.setPrepTime("40 min");
+		r.setServings("10 porções");
+		r.setUrlImage("http://img.itdg.com.br/tdg/images/recipes/000/000/760/38777/38777_original.jpg");
+		r.setIngredients(new ArrayList<Ingredient>());
+		r.addIngredient("ovo");
+		r.addIngredient("farinha");
+		r.addIngredient("leite");
+		r.addIngredient("óleo");
+		r.addIngredientDetail("1 e 1/2 xícara (chá) de farinha de trigo");
+		r.addIngredientDetail("1 xícara (chá) de leite");
+		r.addIngredientDetail("3 ovos");
+		r.addIngredientDetail("4 colheres (sopa) de óleo");
+		r.addIngredientDetail("sal");
+		r.addPreparationSteps("Frite bem o bacon, até ficar crocante (pode-se adicionar salame picado)");
+		r.addPreparationSteps("Coloque o macarrão para cozinhar em água e sal");
+		r.addPreparationSteps("No refratário onde será servido o macarrão, bata bem os ovos com um garfo");
+		r.addPreparationSteps("Tempere com sal e pimenta a gosto, e junte o queijo ralado, também a gosto");	
+		for(IngredientDetail id : r.getIngredientsDetail()){
+			id.setRecipe(r);
+		}
+		for(PreparationStep p : r.getPreparationSteps()){
+			p.setRecipe(r);
+		}
+		
+		new RecipeController().persist(r);		
 	}
 }

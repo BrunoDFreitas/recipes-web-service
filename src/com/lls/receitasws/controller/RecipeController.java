@@ -6,7 +6,6 @@ import java.util.List;
 import com.lls.receitasws.model.RecipeDetail;
 import com.lls.receitasws.dao.HibernateRecipeDao;
 import com.lls.receitasws.dao.MockRecipeDao;
-import com.lls.receitasws.dao.MockRecipeDetailDao;
 import com.lls.receitasws.dao.RecipeDao;
 import com.lls.receitasws.model.Recipe;
 

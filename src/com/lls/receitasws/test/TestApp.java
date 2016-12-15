@@ -17,13 +17,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+//import org.codehaus.jackson.JsonParseException;
+//import org.codehaus.jackson.map.JsonMappingException;
+//import org.codehaus.jackson.map.ObjectMapper;
+//import org.codehaus.jettison.json.JSONArray;
+//import org.codehaus.jettison.json.JSONException;
+//import org.codehaus.jettison.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.lls.receitasws.model.RecipeDetail;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -33,9 +34,10 @@ public class TestApp {
 	private static String baseUrl = "http://localhost:8080/recipes-web-service/";
 	public static void main(String[] args) {
 		try {
-//			recipeSearchTest();
-			recipeSearchIdTest(5);
-//			recipeSearchIdTest(2);
+
+			recipeSearchTest();
+			recipeSearchIdTest(1);
+			recipeSearchIdTest(2);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,18 +46,22 @@ public class TestApp {
 
 	static public void recipeSearchTest() throws ClientProtocolException, IOException {
 		List<String> ingredients = new ArrayList<String>();
-		ingredients.add("linguiça");
+//		ingredients.add("linguiça");
 		ingredients.add("batata");
+		Gson gson = new Gson();
 
-		JSONArray ingrAsJson = new JSONArray(ingredients);
-		Map<String, JSONArray> map = new HashMap<String, JSONArray>();
-		map.put("ingredients", ingrAsJson);
-		JSONObject jsonObj = new JSONObject(map);
-		String s = jsonObj.toString();
+//		JSONArray ingrAsJson = new JSONArray(ingredients);
+		String ingrAsJson = gson.toJson(ingredients);
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("ingredients", ingrAsJson);
+//		JSONObject jsonObj = new JSONObject(map);
+		String s = "{\"ingredients\" : " + ingrAsJson + "}";
+		
 
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost postRequest = new HttpPost(baseUrl + "recipe/search");
 
+//		StringEntity input = new StringEntity(json, Charsets.UTF_8);
 		StringEntity input = new StringEntity(s, Charsets.UTF_8);
 		input.setContentType(MediaType.APPLICATION_JSON);
 		postRequest.setEntity(input);
@@ -75,7 +81,7 @@ public class TestApp {
 		}
 	}
 
-	public static void recipeSearchIdTest(int id) throws JSONException, JsonParseException, JsonMappingException, IOException {
+	public static void recipeSearchIdTest(int id) { //throws JSONException, JsonParseException, JsonMappingException, IOException {
 		Client client = new Client();
 		
 		WebResource webResource = client.resource(baseUrl + "recipe/search/" + id);
@@ -91,10 +97,11 @@ public class TestApp {
 		System.out.println("\n\nGET REQUEST - Output from Server...");
 		System.out.println(stringJson + "\n");
 		
-		System.out.println("Get Objects");
-		JSONObject jobj = new JSONObject(stringJson);
-		RecipeDetail rf = new ObjectMapper().readValue(jobj.toString(), RecipeDetail.class);
-		System.out.println("Id param: " + id);
-		System.out.println("Object - id: " + rf.getId() + ", title: " + rf.getName());
+//		System.out.println("Get Objects");
+//		Gson gson = new Gson();
+//		String jobj = new JSONObject(stringJson);
+//		RecipeDetail rf = new ObjectMapper().readValue(jobj.toString(), RecipeDetail.class);
+//		System.out.println("Id param: " + id);
+//		System.out.println("Object - id: " + rf.getId() + ", title: " + rf.getName());
 	}
 }

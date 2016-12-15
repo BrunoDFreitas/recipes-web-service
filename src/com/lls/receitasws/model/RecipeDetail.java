@@ -18,47 +18,48 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
-@Entity
-@Table(name="recipe")
 @XmlRootElement(name = "recipes")
 @XmlType(propOrder = {"id", "name", "prepTime", "servings", "urlImage", "ingredients", "preparationSteps"})
 public class RecipeDetail {
-	private static int nextId = 1;
 	
-	@Id
-	@GeneratedValue
-	@Column(name="recipe_id", nullable=false)
 	private int id;
 	
-	@Column(name="name", nullable=false)
 	private String name;
 	
-	@Column(name="preparation_time", nullable=false)
 	private String prepTime;
 	
-	@Column(name="servings", nullable=false)
 	private String servings;
 	
-	@Column(name="url_image", nullable=false)
 	private String urlImage;
 	
-	
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "recipe", fetch = FetchType.EAGER)
 	private List<IngredientDetail> ingredients;
 	
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "recipe", fetch = FetchType.EAGER)
 	private List<PreparationStep> preparationSteps;
 	
-//	@Transient
-//	private List<String> lstIngredients = new ArrayList<String>();
-	
-//	@Transient
-//	private List<String> preparationSteps = new ArrayList<String>();
-
 	public RecipeDetail(){
-		id = nextId;
-		nextId++;
+		
 	}
+	
+	public RecipeDetail(Recipe recipe){
+		if(recipe != null) {
+			this.id = recipe.getId();
+			this.name = recipe.getName();
+			this.prepTime = recipe.getPrepTime();
+			this.servings = recipe.getServings();
+			this.urlImage = recipe.getUrlImage();
+			
+			this.ingredients = new ArrayList<IngredientDetail>();
+			for(IngredientDetail id : recipe.getIngredientsDetail())
+				if(!this.ingredients.stream().anyMatch(a -> a.getIngredient().compareTo(id.getIngredient()) == 0))
+					this.ingredients.add(id);
+			
+			this.preparationSteps = new ArrayList<PreparationStep>();
+			for(PreparationStep p : recipe.getPreparationSteps())
+				if(!this.preparationSteps.stream().anyMatch(a -> a.getStep().compareTo(p.getStep()) == 0))
+					this.preparationSteps.add(p);
+		}
+	}
+
 	
 	
 	// GETTER AND SETTERS

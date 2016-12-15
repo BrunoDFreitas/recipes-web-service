@@ -10,11 +10,11 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name="preparatio_step")
+@Table(name="preparation_step")
 public class PreparationStep {
 	@Id
 	@GeneratedValue
-	@Column(name="preparatio_step_id", nullable=false)
+	@Column(name="preparation_step_id", nullable=false)
 	private int id;
 	
 	@Column(name="step", nullable=false)
@@ -22,7 +22,7 @@ public class PreparationStep {
 	
 	@ManyToOne
 	@JoinColumn(name="recipe_id", nullable=false)
-	private RecipeDetail recipe;
+	private Recipe recipe;
 	
 	// GETTERS AND SETTERS
 	public String getStep() {
@@ -34,11 +34,11 @@ public class PreparationStep {
 	}
 
 	@XmlTransient
-	public RecipeDetail getRecipe() {
+	public Recipe getRecipe() {
 		return recipe;
 	}
 
-	public void setRecipe(RecipeDetail recipe) {
+	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
 

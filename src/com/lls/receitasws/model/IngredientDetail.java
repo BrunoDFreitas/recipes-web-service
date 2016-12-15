@@ -23,7 +23,7 @@ public class IngredientDetail {
 
 	@ManyToOne
 	@JoinColumn(name="recipe_id", nullable=false)
-	private RecipeDetail recipe;
+	private Recipe recipe;
 	
 	// GETTERS AND SETTERS
 	public String getIngredient() {
@@ -40,11 +40,11 @@ public class IngredientDetail {
 	}
 
 	@XmlTransient
-	public RecipeDetail getRecipe() {
+	public Recipe getRecipe() {
 		return recipe;
 	}
 
-	public void setRecipe(RecipeDetail recipe) {
+	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
 
